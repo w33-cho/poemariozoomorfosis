@@ -99,7 +99,7 @@ const HomePage = () => {
   return (
     <div className="homepage">
       {/* Navigation */}
-      <nav className="navbar">
+      <nav className="navbar" role="navigation" aria-label="Navegación principal">
         <div className="nav-container">
           <div className="nav-logo" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} style={{ cursor: 'pointer' }}>ZOOMORFOSIS</div>
           <div className="nav-links">
@@ -131,6 +131,7 @@ const HomePage = () => {
         </div>
       </nav>
 
+      <main>
       {/* Hero Section */}
       <section className="hero-section ">
         <div className="hero-background  ">
@@ -299,6 +300,7 @@ const HomePage = () => {
           </div>
         </div>
       </section>
+      </main>
 
       {/* Footer */}
       <footer className="footer">
