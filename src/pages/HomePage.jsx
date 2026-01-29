@@ -1,9 +1,66 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Button } from '../components/ui/button';
 import { Card } from '../components/ui/card';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../components/ui/dropdown-menu';
 import { BookOpen, ShoppingCart, User, ChevronDown, Menu } from 'lucide-react';
 import '../styles/HomePage.css';
+
+const poems = [
+  {
+    id: 1,
+    title: 'La trampa',
+    content: `Veneno inoculado,
+y yo aún captando sus tiempos.
+Suero que en secreto cura,
+vitamina de ensueño.
+¿Cuál irá a dar,
+el lunático?
+Qué suero?
+Tengo tomadas ambas manos.
+A turnos voy muriendo.
+Él me revive a ratos
+sólo si sedo.`,
+    image: '/images/la_trampa.webp',
+    mobileImage: '/images/la_trampa-mobile.webp',
+    section: 'Libro I'
+  },
+  {
+    id: 2,
+    title: 'El barranco',
+    content: `Caminé por el barranco;
+puse mis pies a turnos en el vacío.
+Me sentí libre,
+loba con alas,
+podía elegir no ser presa
+y salir de caza,
+mas rotas estaban mis alas.
+Al final, el abismo encuentra fondo;
+en dicho fondo,
+agua de un lago.
+Mas mi sed era de carne.
+¡El agua no sacia tal sed!
+Vi mi rostro y lloré,
+lo que veía,
+no era humano,
+era un zorro.`,
+    image: '/images/libro2.webp',
+    mobileImage: '/images/libro2-mobile.webp',
+    section: 'Libro II: La Disección del Yo Reflejo'
+  },
+  {
+    id: 3,
+    title: 'A contraluz',
+    content: `A oscuras y a solas,
+solo a mi ser escucho
+y aquí gobierna
+este manantial de pasiones
+que me permiten distinguir
+entre el universo y yo.`,
+    image: '/images/libro4.webp',
+    mobileImage: '/images/libro4-mobile.webp',
+    section: 'Libro IV: El Manantial en la Oscuridad'
+  }
+];
 
 const HomePage = () => {
   const [activePoem, setActivePoem] = useState(null);
@@ -31,60 +88,6 @@ const HomePage = () => {
     handleScroll(); // initial check
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const poems = [
-    {
-      id: 1,
-      title: 'La trampa',
-      content: `Veneno inoculado,
-y yo aún captando sus tiempos.
-Suero que en secreto cura,
-vitamina de ensueño.
-¿Cuál irá a dar,
-el lunático?
-Qué suero?
-Tengo tomadas ambas manos.
-A turnos voy muriendo.
-Él me revive a ratos
-sólo si sedo.`,
-      image: '/images/la_trampa.webp',
-      section: 'Libro I'
-    },
-    {
-      id: 2,
-      title: 'El barranco',
-      content: `Caminé por el barranco;
-puse mis pies a turnos en el vacío.
-Me sentí libre,
-loba con alas,
-podía elegir no ser presa
-y salir de caza,
-mas rotas estaban mis alas.
-Al final, el abismo encuentra fondo;
-en dicho fondo,
-agua de un lago.
-Mas mi sed era de carne.
-¡El agua no sacia tal sed!
-Vi mi rostro y lloré,
-lo que veía,
-no era humano,
-era un zorro.`,
-      image: '/images/libro2.webp',
-      section: 'Libro II: La Disección del Yo Reflejo'
-    },
-    {
-      id: 3,
-      title: 'A contraluz',
-      content: `A oscuras y a solas,
-solo a mi ser escucho
-y aquí gobierna
-este manantial de pasiones
-que me permiten distinguir
-entre el universo y yo.`,
-      image: '/images/libro4.webp',
-      section: 'Libro IV: El Manantial en la Oscuridad'
-    }
-  ];
 
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
@@ -224,7 +227,13 @@ entre el universo y yo.`,
             {poems.map((poem) => (
               <Card key={poem.id} className="poem-card">
                 <div className="poem-card-image">
-                  <img src={poem.image} alt={poem.title} loading="lazy" />
+                  <img
+                    src={poem.image}
+                    srcSet={`${poem.mobileImage} 768w, ${poem.image} 1200w`}
+                    sizes="(max-width: 768px) 100vw, 300px"
+                    alt={poem.title}
+                    loading="lazy"
+                  />
                   <div className="poem-section-label">{poem.section}</div>
                 </div>
                 <div className="poem-card-content">
